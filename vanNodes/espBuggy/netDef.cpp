@@ -1,13 +1,20 @@
 //Network Definitions
 #include "netDef.h"
 
-const uint8_t  
-START = '\a',
-END = '\0';
+  //Get via Serial.println(WiFi.macAddress());
+  //This ESP is buggy (old): {0xFC, 0xF5, 0xC4, 0x0F, 0xBE, 0xFC};
+  //Other ESP is static (new): MAC{0x10, 0x52, 0x1C, 0x68, 0xF3, 0xB0}; 
+
+uint8_t peerMAC[] = {0x10, 0x52, 0x1C, 0x68, 0xF3, 0xB0}; //Adress of other esp
+esp_now_peer_info_t peerInfo;
 
 bool verboseLog = false;
 bool errorLog = false;
 int vanSerial;
+
+const uint8_t  
+START = '\a',
+END = '\0';
 
 //Device addresses, must be constant for all nodes:
 const uint8_t
@@ -28,21 +35,27 @@ MEGA = 1,
 ESP32BUGGY = 2,
 ESP32STATIC = 5;
 
-const uint8_t THISNODE = 4;//nano
+const uint8_t THISNODE = 2;//esp onboard initio buggy
 //address 0x00 not allowed
 
 //The following defines all objects in the newtork, relative to this nodes location:
 
 //Devices local to this node (this node, sensors, actuators, functions)
-const uint8_t LOCALDEVICE[2] = { THISNODE, ULTRASOUND };
+const uint8_t LOCALDEVICE[5] = {THISNODE, IMU, SPLITTER, IMUPID, ROLLOVER};
 
 //All other device ID's connected via serial port 0
-const uint8_t SPORT0[13] = {PC, MEGA, MOTORS, NANO_ENC, PID, ESP32BUGGY,IMU, SPLITTER, IMUPID, ROLLOVER, ESP32STATIC, JOYSTICK, SKIDSTEER};
+const uint8_t SPORT0[0] = {};
+const uint8_t SPORT1[0] = {};
+const uint8_t SPORT2[6] = {MEGA, MOTORS, NANO, ULTRASOUND, NANO_ENC, PID};
+const uint8_t SPORT3[3] = {ESP32STATIC, SKIDSTEER,PC};
 
-////Counts of local devices, and devices reachable on each port
+////Counts of local devices, and devices reachable on each serial port
 const uint8_t 
-N_LOCALDEVICE = 2,
-N_SPORT0 = 13;
+N_LOCALDEVICE = 5,
+N_SPORT0 = 0,
+N_SPORT1 = 0,
+N_SPORT2 = 6,
+N_SPORT3 = 3;
 
 //this node's network map is now defined
 

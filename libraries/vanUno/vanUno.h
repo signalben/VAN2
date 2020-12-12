@@ -12,11 +12,11 @@ extern const uint8_t END;
 extern bool verboseLog;
 extern bool errorLog;
 
-extern const uint8_t lobject[];
-extern const uint8_t port0[];
+extern const uint8_t LOCALDEVICE[];
+extern const uint8_t SPORT0[];
 
-extern const uint8_t n_lobject;
-extern const uint8_t n_port0;
+extern const uint8_t N_LOCALDEVICE;
+extern const uint8_t N_SPORT0;
 
 void Vlog(char inData[]);
 
@@ -39,7 +39,5 @@ void sendMessage(Message inData);
 void showMessage(Message inData);
 
 void commandList(Message inData);
-
-//void serviceList(Message inData);
 
 #endif

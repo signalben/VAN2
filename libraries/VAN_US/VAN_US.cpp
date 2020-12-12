@@ -42,7 +42,6 @@ void REP_NOW_VAN_US() {
 	int distance = int(pulseIn(echoPin, HIGH));
 
 	Message buff;
-	buff.set(thisDevice, default_destination, REPORT, 5, 5, 1);
-	buff.setInt(distance);
+	buff.setInt(thisDevice, default_destination, REPORT, distance, 1);
 	handleMessage(buff);
 }

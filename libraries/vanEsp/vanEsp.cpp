@@ -2,6 +2,8 @@
 //#include "Arduino.h"
 #include "vanEsp.h"
 
+ringbuff RB0;
+
 void Vlog(char inData[]) {
 	if (verboseLog == true) {
 		Serial.println(inData);
@@ -110,7 +112,7 @@ Message getMessage(int selected) {
 	}
 
 	if (getStart() == false) {
-		return buff; //Returning message to ignore as .valid = false
+		return buff; //Returning empty message to ignore as .valid = false
 	}
 
 	buff.src = vanRead();
@@ -132,15 +134,15 @@ void handleMessage(Message inData) {
 	}
 
 	int i = 0;
-	for (i = 0; i < (0 + n_lobject); i++) { //Check if message destination is a local object
-		if (lobject[i] == inData.dest) {
+	for (i = 0; i < (0 + N_LOCALDEVICE); i++) { //Check if message destination is a local device
+		if (LOCALDEVICE[i] == inData.dest) {
 			commandList(inData);  //If it is then pass message to the command list
 			return;
 		}
 	}
 
-	for (i = 0; i < n_port3; i++) {   //Check if message destination is via ESP-NOW
-		if (port3[i] == inData.dest) {
+	for (i = 0; i < N_SPORT3; i++) {   //Check if message destination is via port 3 (ESP-NOW)
+		if (SPORT3[i] == inData.dest) {
 
 			uint8_t buff[7] = { START, inData.src, inData.dest, inData.cmd, inData.dat0, inData.dat1, END };
 			esp_err_t result = esp_now_send(peerMAC, (uint8_t*)&buff, 7);
@@ -154,24 +156,24 @@ void handleMessage(Message inData) {
 		}
 	}
 
-	for (i = 0; i < n_port0; i++) {   //Check if message destination is via port 0
-		if (port0[i] == inData.dest) {
+	for (i = 0; i < N_SPORT0; i++) {   //Check if message destination is via port 0
+		if (SPORT0[i] == inData.dest) {
 			vanSerial = 0;
 			sendMessage(inData);
 			return;
 		}
 	}
 
-	for (i = 0; i < n_port1; i++) {   //Check if message destination is via port 1
-		if (port1[i] == inData.dest) {
+	for (i = 0; i < N_SPORT1; i++) {   //Check if message destination is via port 1
+		if (SPORT1[i] == inData.dest) {
 			vanSerial = 1;
 			sendMessage(inData);
 			return;
 		}
 	}
 
-	for (i = 0; i < n_port2; i++) {   //Check if message destination is via port 2
-		if (port2[i] == inData.dest) {
+	for (i = 0; i < N_SPORT2; i++) {   //Check if message destination is via port 2
+		if (SPORT2[i] == inData.dest) {
 			vanSerial = 2;
 			sendMessage(inData);
 			return;

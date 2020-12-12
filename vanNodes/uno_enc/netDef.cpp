@@ -28,16 +28,16 @@ MEGA = 1,
 ESP32BUGGY = 2,
 ESP32STATIC = 5;
 
-const uint8_t THISNODE = 4;//nano
+const uint8_t THISNODE = 6;//nano enc
 //address 0x00 not allowed
 
 //The following defines all objects in the newtork, relative to this nodes location:
 
 //Devices local to this node (this node, sensors, actuators, functions)
-const uint8_t LOCALDEVICE[2] = { THISNODE, ULTRASOUND };
+const uint8_t LOCALDEVICE[2] = { THISNODE, PID};
 
 //All other device ID's connected via serial port 0
-const uint8_t SPORT0[13] = {PC, MEGA, MOTORS, NANO_ENC, PID, ESP32BUGGY,IMU, SPLITTER, IMUPID, ROLLOVER, ESP32STATIC, JOYSTICK, SKIDSTEER};
+const uint8_t SPORT0[13] = {PC, MEGA, NANO, ULTRASOUND, MOTORS, ESP32BUGGY, IMU, SPLITTER, IMUPID, ROLLOVER, ESP32STATIC, JOYSTICK, SKIDSTEER};
 
 ////Counts of local devices, and devices reachable on each port
 const uint8_t 

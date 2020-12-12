@@ -75,15 +75,15 @@ void handleMessage(Message inData) {
 	}
 
 	int i = 0;
-	for (i = 0; i < (0 + n_lobject); i++) { //Check if message destination is a local object
-		if (lobject[i] == inData.dest) {
+	for (i = 0; i < (0 + N_LOCALDEVICE); i++) { //Check if message destination is a local device
+		if (LOCALDEVICE[i] == inData.dest) {
 			commandList(inData);  //If it is then pass message to the command list
 			return;
 		}
 	}
 
-	for (i = 0; i < n_port0; i++) {   //Check if message destination is via port 0
-		if (port0[i] == inData.dest) {
+	for (i = 0; i < N_SPORT0; i++) {   //Check if message destination is via port 0
+		if (SPORT0[i] == inData.dest) {
 			vanSerial = 0;
 			sendMessage(inData);
 			return;

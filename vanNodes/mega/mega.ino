@@ -1,36 +1,33 @@
 #include "netDef.h"
-#include<vanEsp.h>
+#include<vanMega.h>
+#include<node.h>
+#include <van_dev_motors.h>
 
-void echoMessage(Message inData){
-  Message buff = inData;
-  buff.src = inData.dest;
-  buff.dest = inData.src;
-  buff.cmd = 4; // 4= echo response
-  handleMessage(buff);
-}
+van_motors M0(MOTORS,12,3,13,11);
 
 void commandList(Message inData) {
-  if(inData.dest == thisNode){
-    //assuming CMD = 3 = echo
-    echoMessage(inData);
+  if (inData.dest == THISNODE) {
+    CMD_VAN_NODE(inData);
   }
-  //showMessage(inData);
+    if (inData.dest == MOTORS) {
+    M0.command(inData);
+  }
 }
 
-Message dummy;
+void reportList() {
+}
 
 void setup() {
   Serial.begin(115200);
-  verboseLog = true;
-  errorLog = true;
-  Vlog("Hello");
-  Elog("world");
-  espNowSetup();
+  Serial1.begin(115200);
+  Serial2.begin(115200);
+  Serial3.begin(115200);
 }
 
 void loop() {
   handleMessage(getMessage(0));
-  dummy.set(dummyobject, thisNode, 3, 123, 45, 1);
-  handleMessage(dummy);
-  delay(1000);                       // wait for a second
+  handleMessage(getMessage(1));
+  handleMessage(getMessage(2));
+  handleMessage(getMessage(3));
+  reportList();
 }

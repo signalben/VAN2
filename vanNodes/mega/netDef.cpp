@@ -1,13 +1,13 @@
 //Network Definitions
 #include "netDef.h"
 
-const uint8_t  
-START = '\a',
-END = '\0';
-
 bool verboseLog = false;
 bool errorLog = false;
 int vanSerial;
+
+const uint8_t  
+START = '\a',
+END = '\0';
 
 //Device addresses, must be constant for all nodes:
 const uint8_t
@@ -28,21 +28,27 @@ MEGA = 1,
 ESP32BUGGY = 2,
 ESP32STATIC = 5;
 
-const uint8_t THISNODE = 4;//nano
+const uint8_t THISNODE = 1;//This is the mega, (on buggy)
 //address 0x00 not allowed
 
 //The following defines all objects in the newtork, relative to this nodes location:
 
 //Devices local to this node (this node, sensors, actuators, functions)
-const uint8_t LOCALDEVICE[2] = { THISNODE, ULTRASOUND };
+const uint8_t LOCALDEVICE[2] = {THISNODE, MOTORS};
 
 //All other device ID's connected via serial port 0
-const uint8_t SPORT0[13] = {PC, MEGA, MOTORS, NANO_ENC, PID, ESP32BUGGY,IMU, SPLITTER, IMUPID, ROLLOVER, ESP32STATIC, JOYSTICK, SKIDSTEER};
+const uint8_t SPORT0[0] = {};
+const uint8_t SPORT1[8] = {PC,ESP32BUGGY,IMU, SPLITTER, IMUPID, ROLLOVER, ESP32STATIC, SKIDSTEER};
+const uint8_t SPORT2[2] = {NANO, ULTRASOUND};
+const uint8_t SPORT3[2] = {NANO_ENC,PID};
 
 ////Counts of local devices, and devices reachable on each port
 const uint8_t 
 N_LOCALDEVICE = 2,
-N_SPORT0 = 13;
+N_SPORT0 = 0,
+N_SPORT1 = 8,
+N_SPORT2 = 2,
+N_SPORT3 = 2;
 
 //this node's network map is now defined
 
