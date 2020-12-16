@@ -4,6 +4,7 @@
 #include<node.h>
 #include<van_dev_ultrasound.h>
 
+ackbuff AKB0;//Create a buffer to store messages to be repeatedly sent until an acknowledgement is recieved 
 van_us US0(ULTRASOUND, 11, 12);
 
 void commandList(Message inData) {
@@ -16,13 +17,15 @@ void commandList(Message inData) {
 }
 
 void reportList() {
-  US0.autoReport();
+  AKB0.handleWaiting();
+  US0.autoReport(); 
 }
 
 void setup() {
   Serial.begin(115200);
   US0.period = 100;
   US0.destination = PC;
+  AKB0.period = 100;
 }
 
 void loop() {

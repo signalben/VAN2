@@ -84,7 +84,7 @@ void van_js::instantReport() {
 	 if (inUse >= 3) {
 		inUse = 3;
 		Message buff;
-		buff.set(thisDevice, destination, SET, uint8_t(velocity), uint8_t(heading), 1);
+		buff.set(STD, thisDevice, destination, SET, uint8_t(velocity), uint8_t(heading), 1);
 		handleMessage(buff);
 	}
 	 if ((velocity == 128) && (heading == 128)) { //don't keep sending stationary messages- other device may be in control

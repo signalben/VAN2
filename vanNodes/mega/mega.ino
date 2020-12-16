@@ -3,6 +3,7 @@
 #include<node.h>
 #include <van_dev_motors.h>
 
+ackbuff AKB0;//Create a buffer to store messages to be repeatedly sent until an acknowledgement is recieved 
 van_motors M0(MOTORS,12,3,13,11);
 
 void commandList(Message inData) {
@@ -15,6 +16,7 @@ void commandList(Message inData) {
 }
 
 void reportList() {
+  
 }
 
 void setup() {
@@ -22,12 +24,13 @@ void setup() {
   Serial1.begin(115200);
   Serial2.begin(115200);
   Serial3.begin(115200);
+  
 }
 
 void loop() {
-  handleMessage(getMessage(0));
-  handleMessage(getMessage(1));
-  handleMessage(getMessage(2));
-  handleMessage(getMessage(3));
+    handleMessage(getMessage(0));
+    handleMessage(getMessage(1));
+    handleMessage(getMessage(2));
+    handleMessage(getMessage(3));
   reportList();
 }

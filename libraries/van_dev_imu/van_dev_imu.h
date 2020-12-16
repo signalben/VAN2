@@ -4,6 +4,7 @@
 #define van_dev_imu_h
 #include "Arduino.h"
 #include "message.h"
+#include "ackbuff.h"
 
 extern const uint8_t
 PERIOD,
@@ -17,8 +18,11 @@ PARAM3,
 PARAM4,
 PARAM5;
 
-extern void showMessage(message inData);
+extern ackbuff AKB0;
+//External functions from VAN
+extern void Elog(uint8_t fileNo, uint8_t errorcode);
 extern void handleMessage(message inData);
+extern void showMessage(message inData);
 extern void IMU0Update();
 
 class van_imu {
@@ -28,8 +32,8 @@ public:
     uint8_t thisDevice;
     unsigned long lastReport;
     unsigned int period;
-    uint8_t AXdest, AYdest, AZdest, ANGXdest, ANGYdest, ANGZdest;
-    float AX, AY, AZ, ANGX, ANGY, ANGZ;
+    uint8_t AYdest, GZdest, ANGYdest;
+    float AY, ANGY, GZ;
 
     van_imu(uint8_t deviceAdress);
 	void command(message inData);

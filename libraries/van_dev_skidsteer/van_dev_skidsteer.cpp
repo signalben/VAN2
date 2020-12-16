@@ -3,6 +3,7 @@
 #include "van_dev_skidsteer.h"
 #include "Arduino.h"
 #include <message.h>
+#include "ackbuff.h"
 
 van_skid::van_skid(uint8_t deviceAdress) {
 	thisDevice = deviceAdress; //Skidsteer
@@ -31,7 +32,7 @@ void van_skid::command(message inData) {
 		right = constrain(right, 0, 255);
 
 		Message buff;
-		buff.set(thisDevice, destination, SET, uint8_t(left), uint8_t(right), 1);
+		buff.set(STD, thisDevice, destination, SET, uint8_t(left), uint8_t(right), 1);
 		handleMessage(buff);
 
 		return;

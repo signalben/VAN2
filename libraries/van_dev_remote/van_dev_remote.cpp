@@ -87,14 +87,14 @@ void van_rem::instantReport() {
 		lVel = constrain(lVel, 0, 255);
 		rVel = constrain(rVel, 0, 255);
 
-		buff.set(thisDevice, destination, SET, uint8_t(lVel), uint8_t(rVel), 1);
+		buff.set(STD, thisDevice, destination, SET, uint8_t(lVel), uint8_t(rVel), 1);
 		handleMessage(buff);
 		//showMessage(buff);
 	}
 	else {
 		if (stopped == false) {
 			stopped = true;
-			buff.set(thisDevice, destination, SET, 128, 128, 1);
+			buff.set(STD, thisDevice, destination, SET, 128, 128, 1);
 			handleMessage(buff);
 			//showMessage(buff);
 		}

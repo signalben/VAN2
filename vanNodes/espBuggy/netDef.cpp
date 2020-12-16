@@ -6,17 +6,15 @@
   //Other ESP is static (new): MAC{0x10, 0x52, 0x1C, 0x68, 0xF3, 0xB0}; 
 
 uint8_t peerMAC[] = {0x10, 0x52, 0x1C, 0x68, 0xF3, 0xB0}; //Adress of other esp
-esp_now_peer_info_t peerInfo;
 
-bool verboseLog = false;
-bool errorLog = false;
-int vanSerial;
-
+//Message passing constants
 const uint8_t  
-START = '\a',
-END = '\0';
+STD = '\a',
+ACK = 90,
+RESP = 110,
+ELOGDEST = 0; //Elog not active
 
-//Device addresses, must be constant for all nodes:
+//Device addresses, must be constant across all nodes:
 const uint8_t
 ULTRASOUND = 16,
 JOYSTICK = 17,
@@ -25,9 +23,7 @@ REMOTE = 19,
 MOTORS = 20,
 SKIDSTEER = 30,
 PID = 31,
-SPLITTER = 32,
 ROLLOVER = 33,
-IMUPID = 34,
 PC = 3,
 NANO = 4,
 NANO_ENC = 6,
@@ -41,9 +37,9 @@ const uint8_t THISNODE = 2;//esp onboard initio buggy
 //The following defines all objects in the newtork, relative to this nodes location:
 
 //Devices local to this node (this node, sensors, actuators, functions)
-const uint8_t LOCALDEVICE[5] = {THISNODE, IMU, SPLITTER, IMUPID, ROLLOVER};
+const uint8_t LOCALDEVICE[3] = {THISNODE, IMU, ROLLOVER};
 
-//All other device ID's connected via serial port 0
+//All other device ID's connected via serial ports 
 const uint8_t SPORT0[0] = {};
 const uint8_t SPORT1[0] = {};
 const uint8_t SPORT2[6] = {MEGA, MOTORS, NANO, ULTRASOUND, NANO_ENC, PID};
@@ -51,7 +47,7 @@ const uint8_t SPORT3[3] = {ESP32STATIC, SKIDSTEER,PC};
 
 ////Counts of local devices, and devices reachable on each serial port
 const uint8_t 
-N_LOCALDEVICE = 5,
+N_LOCALDEVICE = 3,
 N_SPORT0 = 0,
 N_SPORT1 = 0,
 N_SPORT2 = 6,
@@ -73,4 +69,5 @@ PARAM1 = 9,
 PARAM2 = 10,
 PARAM3 = 11,
 PARAM4 = 12,
-PARAM5 = 13;
+PARAM5 = 13,
+MSGERROR = 14;

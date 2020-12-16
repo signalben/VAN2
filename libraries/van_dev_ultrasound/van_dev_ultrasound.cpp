@@ -4,8 +4,6 @@
 #include "Arduino.h"
 #include <message.h>
 
-
-
 van_us::van_us(uint8_t deviceAdress, int a, int b) {
 
 	trigPin = a;    // Trigger 11
@@ -79,27 +77,26 @@ void van_us::instantReport() {
 	pinMode(echoPin, INPUT);
 	int distance = int(pulseIn(echoPin, HIGH));
 
-	Message buff;
-	buff.setInt(thisDevice, destination, REPORT, distance, 1);
-	handleMessage(buff);
+	/*Message buff;
+	buff.setInt(STD, thisDevice, destination, REPORT, distance, 1);
+	handleMessage(buff);*/
 
-	Serial.println(distance);
-
-	Message enableForwards;
+	Message toMotors;
 	if (distance > obstructed) {
-		enableForwards.set(thisDevice, MOTORS, PARAM0, 255, 255, 1); //OK to proceed
+		toMotors.set(STD, thisDevice, IMU, PARAM0, 255, 255, 1); //OK to proceed
 		stopped = false;
+		AKB0.cancel(toMotors);		//cancels repeating of motor disable message (regardless of response, since conditions have changed)
+		handleMessage(toMotors);
 	}
-	else {
-		enableForwards.set(thisDevice, MOTORS, PARAM0, 0, 0, 1); //Avoid crash
-		if (stopped == false) {
-			Message brake;
-			brake.set(thisDevice, PID, SET, 128, 128, 1);
-			handleMessage(brake);
-			stopped = true;
-		}
+	else if (stopped == false) {
+		toMotors.set(STD, thisDevice, IMU, PARAM0, 0, 0, 1); //Avoid crash
+		AKB0.add(toMotors); //add message to accknowledge message send list
+	//Message brake;
+		//brake.set(STD, thisDevice, PID, SET, 128, 128, 1);
+		//handleMessage(brake);
+		stopped = true;
 	}
-	handleMessage(enableForwards);
 
 	lastReport = millis();
 }
+

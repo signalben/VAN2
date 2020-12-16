@@ -24,10 +24,6 @@ van_motors::van_motors(uint8_t deviceAdress, int a, int b, int c, int d) {
 }
 
 void van_motors::command(message inData) {
-	showMessage(inData);
-	Serial.println(safeAhead);
-	Serial.println(upright);
-	Serial.println();
 
 	if (inData.cmd == SET) {
 

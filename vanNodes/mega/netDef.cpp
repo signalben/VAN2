@@ -1,13 +1,11 @@
 //Network Definitions
 #include "netDef.h"
 
-bool verboseLog = false;
-bool errorLog = false;
-int vanSerial;
-
 const uint8_t  
-START = '\a',
-END = '\0';
+STD = '\a',
+ACK = 90,
+RESP = 110,
+ELOGDEST = 0; //Elog not active
 
 //Device addresses, must be constant for all nodes:
 const uint8_t
@@ -18,9 +16,7 @@ REMOTE = 19,
 MOTORS = 20,
 SKIDSTEER = 30,
 PID = 31,
-SPLITTER = 32,
 ROLLOVER = 33,
-IMUPID = 34,
 PC = 3,
 NANO = 4,
 NANO_ENC = 6,
@@ -38,7 +34,7 @@ const uint8_t LOCALDEVICE[2] = {THISNODE, MOTORS};
 
 //All other device ID's connected via serial port 0
 const uint8_t SPORT0[0] = {};
-const uint8_t SPORT1[8] = {PC,ESP32BUGGY,IMU, SPLITTER, IMUPID, ROLLOVER, ESP32STATIC, SKIDSTEER};
+const uint8_t SPORT1[6] = {PC,ESP32BUGGY,IMU, ROLLOVER, ESP32STATIC, SKIDSTEER};
 const uint8_t SPORT2[2] = {NANO, ULTRASOUND};
 const uint8_t SPORT3[2] = {NANO_ENC,PID};
 
@@ -46,7 +42,7 @@ const uint8_t SPORT3[2] = {NANO_ENC,PID};
 const uint8_t 
 N_LOCALDEVICE = 2,
 N_SPORT0 = 0,
-N_SPORT1 = 8,
+N_SPORT1 = 6,
 N_SPORT2 = 2,
 N_SPORT3 = 2;
 
@@ -66,4 +62,5 @@ PARAM1 = 9,
 PARAM2 = 10,
 PARAM3 = 11,
 PARAM4 = 12,
-PARAM5 = 13;
+PARAM5 = 13,
+MSGERROR = 14;

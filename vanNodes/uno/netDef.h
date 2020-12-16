@@ -5,8 +5,11 @@
 #include <message.h>
 
 extern const uint8_t
-START,
-END,
+STD,
+ACK,
+RESP,
+ELOGDEST,
+
 THISNODE,
 ULTRASOUND,
 JOYSTICK,
@@ -15,9 +18,7 @@ REMOTE,
 MOTORS,
 SKIDSTEER,
 PID,
-SPLITTER,
 ROLLOVER,
-IMUPID,
 PC,
 NANO,
 NANO_ENC,
@@ -29,6 +30,7 @@ LOCALDEVICE[],
 SPORT0[],
 N_LOCALDEVICE,
 N_SPORT0,
+
 REPORT,
 PERIOD,
 ECHO,
@@ -41,15 +43,6 @@ PARAM1,
 PARAM2,
 PARAM3,
 PARAM4,
-PARAM5;
-
-extern bool
-verboseLog,
-errorLog;
-extern int vanSerial;
-
-
-
-
-
+PARAM5,
+MSGERROR;
 #endif

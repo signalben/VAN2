@@ -7,12 +7,9 @@
 
 van_imu::van_imu(uint8_t deviceAdress) {
 	thisDevice = deviceAdress; //IMU
-	AXdest = 0;
 	AYdest = 0;
-	AZdest = 0;
-	ANGXdest = 0;
+	GZdest = 0;
 	ANGYdest = 0;
-	ANGZdest = 0;
 	lastReport = 0;
 	period = 0;
 }
@@ -27,27 +24,15 @@ void van_imu::command(message inData) {
 	if (inData.cmd == SETDEST) {
 
 		if (inData.dat0 == PARAM0) {
-			AXdest = inData.dat1;
-			return;
-		}
-		if (inData.dat0 == PARAM1) {
 			AYdest = inData.dat1;
 			return;
 		}
+		if (inData.dat0 == PARAM1) {
+			GZdest = inData.dat1;
+			return;
+		}
 		if (inData.dat0 == PARAM2) {
-			AZdest = inData.dat1;
-			return;
-		}
-		if (inData.dat0 == PARAM3) {
-			ANGXdest = inData.dat1;
-			return;
-		}
-		if (inData.dat0 == PARAM4) {
 			ANGYdest = inData.dat1;
-			return;
-		}
-		if (inData.dat0 == PARAM5) {
-			ANGZdest = inData.dat1;
 			return;
 		}
 		return;
@@ -77,13 +62,10 @@ void van_imu::autoReport() {
 void van_imu::instantReport() {
 
 	IMU0Update();
-	sendChannel(AX, PARAM0, AXdest, 1000);
-	sendChannel(AY, PARAM1, AYdest, 1000);
-	sendChannel(AZ, PARAM2, AZdest, 1000);
-	sendChannel(ANGX, PARAM3, ANGXdest, 1);
-	sendChannel(ANGY, PARAM4, ANGYdest, 1);
-	sendChannel(ANGZ, PARAM5, ANGZdest, 1);
-
+	//sendChannel(AY, PARAM0, AYdest, 1000);//forward velocity
+	//sendChannel(GZ, PARAM1, GZdest, 1);//turn velocity
+	sendChannel(ANGY, PARAM4, ANGYdest, 1);//rollover
+	
 	lastReport = millis();
 }
 
@@ -95,7 +77,7 @@ void van_imu::sendChannel(float reading, uint8_t channel, uint8_t destination, i
 	int intReading = int(scaledReading);
 
 	Message buff;
-	buff.setInt(thisDevice, destination, channel, intReading, 1);
+	buff.setInt(STD, thisDevice, destination, channel, intReading, 1);
 	handleMessage(buff);
 	//showMessage(buff);
 }
