@@ -12,7 +12,7 @@ van_us::van_us(uint8_t deviceAdress, int a, int b) {
 	destination = 0; //test to pc, should be 0 
 	lastReport = 0;
 	period = 0;
-	obstructed = 750;
+	obstructed = 1500;
 }
 
 void van_us::command(message inData) {
@@ -62,8 +62,6 @@ void van_us::autoReport() {
 
 void van_us::instantReport() {
 
-	static bool stopped = false;
-
 	if (destination == 0) {
 		return;
 	}
@@ -77,26 +75,38 @@ void van_us::instantReport() {
 	pinMode(echoPin, INPUT);
 	int distance = int(pulseIn(echoPin, HIGH));
 
-	/*Message buff;
+	Message buff;
 	buff.setInt(STD, thisDevice, destination, REPORT, distance, 1);
-	handleMessage(buff);*/
+	handleMessage(buff);
 
-	Message toMotors;
-	if (distance > obstructed) {
-		toMotors.set(STD, thisDevice, IMU, PARAM0, 255, 255, 1); //OK to proceed
-		stopped = false;
-		AKB0.cancel(toMotors);		//cancels repeating of motor disable message (regardless of response, since conditions have changed)
-		handleMessage(toMotors);
-	}
-	else if (stopped == false) {
-		toMotors.set(STD, thisDevice, IMU, PARAM0, 0, 0, 1); //Avoid crash
-		AKB0.add(toMotors); //add message to accknowledge message send list
-	//Message brake;
-		//brake.set(STD, thisDevice, PID, SET, 128, 128, 1);
-		//handleMessage(brake);
-		stopped = true;
-	}
+	assessDanger(distance);
 
 	lastReport = millis();
+}
+
+void van_us::assessDanger(int distance) {
+	bool clearAhead;
+	static bool oldClearAhead = false;
+
+	if (distance < obstructed) {
+		clearAhead = false;
+	}
+	else {
+		clearAhead = true;
+	}
+
+	if (clearAhead != oldClearAhead) {//Has changed state
+		Message toMotors;
+
+		if (clearAhead) {//obsticle cleared
+			toMotors.set(STD, thisDevice, MOTORS, PARAM0, 255, 255, 1); //clear ahead
+		}
+		else {//obsticle detected
+			toMotors.set(STD, thisDevice, MOTORS, PARAM0, 0, 0, 1); //obsticle detected
+		}
+		AKB0.cancel(toMotors);//cancel previous ACK waiting
+		AKB0.add(toMotors); //add message to acknowledge message send list
+	}
+	oldClearAhead = clearAhead;
 }
 

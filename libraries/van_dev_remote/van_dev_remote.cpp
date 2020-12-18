@@ -52,8 +52,10 @@ void van_rem::instantReport() {
 	
 	REM0Update();
 	Message buff;
+	buff.set(STD, thisDevice, destination, SET, 128, 128, 1);
 
 	if (IRReadValue) {
+		AKB0.cancel(buff);//cancel previous ACK waiting
 		stopped = false;
 		if (IRReadValue == repeat) {
 			IRReadValue = previousIRRead;
@@ -95,8 +97,7 @@ void van_rem::instantReport() {
 		if (stopped == false) {
 			stopped = true;
 			buff.set(STD, thisDevice, destination, SET, 128, 128, 1);
-			handleMessage(buff);
-			//showMessage(buff);
+			AKB0.add(buff); //add message to acknowledge message send list
 		}
 	}
 

@@ -207,30 +207,16 @@ Message getMessage(int selected) {
 		}
 	}
 
-	//Serial.println("Message recieved");
-	//showMessage(buff);
-	Serial.print("NORM");
-	Serial.println(vanSerial);
-	showMessage(buff);
-
 	if (buff.start != STD) { //if the message is ACK or RESP
 		int i = 0;
 		for (i = 0; i < (0 + N_LOCALDEVICE); i++) { //Check if message destination is a local device
 			if (LOCALDEVICE[i] == buff.dest) {
 				if (buff.start == ACK) {
-					//Serial.println("This message requires acknowledgement");
 					Message standardMSG = buff;
 					standardMSG.start = STD;//produce copy, flag as normal message 
 					buff.sendBack(); //swap source and dest
 					buff.start = RESP; //flag as a response
-					//Serial.println("Response returned to sender:");
-					//showMessage(buff); // send in the same way as an ordinary message
 					handleMessage(buff); // send in the same way as an ordinary message
-					//Serial.println("And normal message to command destination device: ");
-					//showMessage(standardMSG); // send in the same way as an ordinary message
-					Serial.print("RESPONSE");
-					Serial.println(vanSerial);
-					showMessage(buff);
 					return standardMSG; //return without ACK qualification (response already delt with)
 				}
 				if (buff.start == RESP) {

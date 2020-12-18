@@ -5,6 +5,8 @@
 #include "Arduino.h"
 #include <message.h>
 
+
+
 van_imu::van_imu(uint8_t deviceAdress) {
 	thisDevice = deviceAdress; //IMU
 	AYdest = 0;
@@ -79,5 +81,5 @@ void van_imu::sendChannel(float reading, uint8_t channel, uint8_t destination, i
 	Message buff;
 	buff.setInt(STD, thisDevice, destination, channel, intReading, 1);
 	handleMessage(buff);
-	//showMessage(buff);
+	showMessage(buff);
 }

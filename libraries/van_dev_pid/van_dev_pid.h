@@ -10,6 +10,7 @@ extern const uint8_t
 PERIOD,
 REPORT,
 SETDEST,
+STD,
 SET,
 IMU,
 PARAM0,

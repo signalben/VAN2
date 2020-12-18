@@ -37,7 +37,7 @@ const uint8_t THISNODE = 2;//esp onboard initio buggy
 //The following defines all objects in the newtork, relative to this nodes location:
 
 //Devices local to this node (this node, sensors, actuators, functions)
-const uint8_t LOCALDEVICE[3] = {THISNODE, IMU, ROLLOVER};
+const uint8_t LOCALDEVICE[4] = {THISNODE, IMU, ROLLOVER, REMOTE};
 
 //All other device ID's connected via serial ports 
 const uint8_t SPORT0[0] = {};
@@ -47,7 +47,7 @@ const uint8_t SPORT3[3] = {ESP32STATIC, SKIDSTEER,PC};
 
 ////Counts of local devices, and devices reachable on each serial port
 const uint8_t 
-N_LOCALDEVICE = 3,
+N_LOCALDEVICE = 4,
 N_SPORT0 = 0,
 N_SPORT1 = 0,
 N_SPORT2 = 6,

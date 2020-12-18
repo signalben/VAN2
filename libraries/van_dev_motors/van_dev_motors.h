@@ -7,6 +7,7 @@
 #include "ackbuff.h"
 
 extern const uint8_t
+STD,
 PERIOD,
 REPORT,
 SETDEST,

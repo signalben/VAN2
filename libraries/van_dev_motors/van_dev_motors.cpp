@@ -4,6 +4,10 @@
 #include "Arduino.h"
 #include <message.h>
 
+//15:34 : 48.141->PORT : 3
+//15 : 34 : 48.141 -> 7_31_20_7_110_110 WHY NO GO?????
+
+
 van_motors::van_motors(uint8_t deviceAdress, int a, int b, int c, int d) {
 
 	aDirPin = a; // 12
@@ -25,8 +29,7 @@ van_motors::van_motors(uint8_t deviceAdress, int a, int b, int c, int d) {
 
 void van_motors::command(message inData) {
 
-	if (inData.cmd == SET) {
-
+	if (inData.cmd == SET) {	
 		if (upright) {
 			int left = inData.dat1 - 128;//dat0, dat1  motor a, b range -128,127
 			int right = inData.dat0 - 128;

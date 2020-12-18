@@ -19,6 +19,7 @@ PARAM4,
 PARAM5;
 
 extern ackbuff AKB0;
+extern float AY, ANGY, GZ;
 //External functions from VAN
 extern void Elog(uint8_t fileNo, uint8_t errorcode);
 extern void handleMessage(message inData);
@@ -33,7 +34,7 @@ public:
     unsigned long lastReport;
     unsigned int period;
     uint8_t AYdest, GZdest, ANGYdest;
-    float AY, ANGY, GZ;
+    
 
     van_imu(uint8_t deviceAdress);
 	void command(message inData);

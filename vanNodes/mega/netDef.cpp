@@ -34,7 +34,7 @@ const uint8_t LOCALDEVICE[2] = {THISNODE, MOTORS};
 
 //All other device ID's connected via serial port 0
 const uint8_t SPORT0[0] = {};
-const uint8_t SPORT1[6] = {PC,ESP32BUGGY,IMU, ROLLOVER, ESP32STATIC, SKIDSTEER};
+const uint8_t SPORT1[7] = {PC,ESP32BUGGY,REMOTE,IMU, ROLLOVER, ESP32STATIC, SKIDSTEER};
 const uint8_t SPORT2[2] = {NANO, ULTRASOUND};
 const uint8_t SPORT3[2] = {NANO_ENC,PID};
 
@@ -42,7 +42,7 @@ const uint8_t SPORT3[2] = {NANO_ENC,PID};
 const uint8_t 
 N_LOCALDEVICE = 2,
 N_SPORT0 = 0,
-N_SPORT1 = 6,
+N_SPORT1 = 7,
 N_SPORT2 = 2,
 N_SPORT3 = 2;
 

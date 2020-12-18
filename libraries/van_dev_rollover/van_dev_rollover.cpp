@@ -27,16 +27,30 @@ void van_roll::command(message inData) {
 }
 
 void van_roll::assessDanger(int angle) {
+	bool upright;
+	static bool oldUpright = false;
 
-	Message enableMotors;
-	
 	if ((angle < -45) || (angle > 45)) {
-		enableMotors.set(STD, thisDevice, destination, PARAM1, 0, 0, 1); //rollover detected
+		upright = false;
 	}
 	else {
-		enableMotors.set(STD, thisDevice, destination, PARAM1, 255, 255, 1); //vehicle upright
+		upright = true;
 	}
-	handleMessage(enableMotors);
-	//showMessage(enableMotors);*/
+
+	if (upright != oldUpright) {//Has changed state
+		Message toMotors;
+		Serial.print("roll");
+		Serial.print(upright);
+
+		if (upright) {//has been put the right way up
+			toMotors.set(STD, thisDevice, MOTORS, PARAM1, 255, 255, 1); //vehicle upright
+		}
+		else {//has fallen over
+			toMotors.set(STD, thisDevice, MOTORS, PARAM1, 0, 0, 1); //rollover detected
+		}
+		AKB0.cancel(toMotors);//cancel previous ACK waiting
+		AKB0.add(toMotors); //add message to acknowledge message send list
+	}
+	oldUpright = upright;
 }
 

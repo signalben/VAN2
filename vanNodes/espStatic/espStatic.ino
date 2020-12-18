@@ -4,6 +4,7 @@
 #include <van_dev_joystick.h>
 #include <van_dev_skidsteer.h>
 
+ackbuff AKB0;//Create a buffer to store messages to be repeatedly sent until an acknowledgement is recieved 
 Van_js JS0(JOYSTICK, 36, 39);
 van_skid SKD0(SKIDSTEER);
 

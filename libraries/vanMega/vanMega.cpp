@@ -162,15 +162,12 @@ Message getMessage(int selected) {
 	}
 	buff.valid = true; //Allows further use by other functions 
 
-	Serial.print("PORT:  ");
-	Serial.println(vanSerial);
-	showMessage(buff);
-
 	if (buff.start != STD) { //if the message is ACK or RESP
+		//showMessage(buff);
 		int i = 0;
 		for (i = 0; i < (0 + N_LOCALDEVICE); i++) { //Check if message destination is a local device
 			if (LOCALDEVICE[i] == buff.dest) {
-				if (buff.start == ACK) {					
+				if (buff.start == ACK) {
 					Message standardMSG = buff;
 					standardMSG.start = STD;//produce copy, flag as normal message 
 					buff.sendBack(); //swap source and dest

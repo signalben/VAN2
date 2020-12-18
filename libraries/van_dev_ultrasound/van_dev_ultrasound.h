@@ -13,6 +13,7 @@ REPORT,
 SETDEST,
 REPORTNOW,
 MOTORS,
+SKIDSTEER,
 IMU,
 SET,
 PID,
@@ -44,6 +45,7 @@ public:
     void command(message inData);
     void autoReport();
     void instantReport();
+    void assessDanger(int);
 };
 typedef class van_us Van_us;
 

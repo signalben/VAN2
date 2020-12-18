@@ -14,6 +14,7 @@
 
 ackbuff AKB0;//Create a buffer to store messages to be repeatedly sent until an acknowledgement is recieved 
 MPU6050 mpu(Wire);
+float AY, ANGY, GZ;
 Van_imu IMU0(IMU);
 Van_roll RL0(ROLLOVER);
 Van_rem REM0(REMOTE);
@@ -34,9 +35,12 @@ void REM0Update() {
 
 void IMU0Update() {
   mpu.update();
-  IMU0.AY = mpu.getAccY();
-  IMU0.GZ = mpu.getGyroZ();
-  IMU0.ANGY = mpu.getAngleY();
+  AY = mpu.getAccY();
+  GZ = mpu.getGyroZ();
+  ANGY = mpu.getAngleY();
+ // float AY = mpu.getAngleY();
+ // IMU0.ANGY = AY;
+ // Serial.println(IMU0.ANGY);//////////////////////I think the MPU is broken!!!!! :(
 }
 
 void commandList(Message inData) {
@@ -54,6 +58,7 @@ void commandList(Message inData) {
 void reportList() {
   IMU0.autoReport();
   REM0.autoReport();
+  AKB0.handleWaiting();
 }
 
 void setup() {
@@ -67,10 +72,11 @@ void setup() {
   IMU0.AYdest = PID;
   IMU0.GZdest = PID;
   IMU0.ANGYdest = ROLLOVER;
-  IMU0.period = 0;
+  IMU0.period = 100;
   RL0.destination = MOTORS;
   REM0.period = 100;
   REM0.destination = PID;
+  AKB0.period = 100;
 }
 
 void loop() {

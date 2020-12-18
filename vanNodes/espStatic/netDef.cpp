@@ -6,17 +6,16 @@
   //Other ESP is buggy (old): {0xFC, 0xF5, 0xC4, 0x0F, 0xBE, 0xFC};
 
 uint8_t peerMAC[] = {0xFC, 0xF5, 0xC4, 0x0F, 0xBE, 0xFC}; //Adress of other esp
-esp_now_peer_info_t peerInfo;
 
-bool verboseLog = false;
-bool errorLog = false;
-int vanSerial;
 
+//Message passing constants
 const uint8_t  
-START = '\a',
-END = '\0';
+STD = '\a',
+ACK = 90,
+RESP = 110,
+ELOGDEST = 0; //Elog not active
 
-//Device addresses, must be constant for all nodes:
+//Device addresses, must be constant across all nodes:
 const uint8_t
 ULTRASOUND = 16,
 JOYSTICK = 17,
@@ -25,9 +24,7 @@ REMOTE = 19,
 MOTORS = 20,
 SKIDSTEER = 30,
 PID = 31,
-SPLITTER = 32,
 ROLLOVER = 33,
-IMUPID = 34,
 PC = 3,
 NANO = 4,
 NANO_ENC = 6,
@@ -47,7 +44,7 @@ const uint8_t LOCALDEVICE[3] = {THISNODE, JOYSTICK, SKIDSTEER};
 const uint8_t SPORT0[1] = {PC};
 const uint8_t SPORT1[0] = {};
 const uint8_t SPORT2[0] = {};
-const uint8_t SPORT3[11] = {ESP32BUGGY,IMU, SPLITTER, IMUPID, ROLLOVER, MEGA, MOTORS, NANO, ULTRASOUND, NANO_ENC, PID};
+const uint8_t SPORT3[9] = {ESP32BUGGY,IMU, ROLLOVER, MEGA, MOTORS, NANO, ULTRASOUND, NANO_ENC, PID};
 
 ////Counts of local devices, and devices reachable on each port
 const uint8_t 
@@ -55,7 +52,7 @@ N_LOCALDEVICE = 3,
 N_SPORT0 = 1,
 N_SPORT1 = 0,
 N_SPORT2 = 0,
-N_SPORT3 = 11;
+N_SPORT3 = 9;
 
 //this node's network map is now defined
 
@@ -73,4 +70,5 @@ PARAM1 = 9,
 PARAM2 = 10,
 PARAM3 = 11,
 PARAM4 = 12,
-PARAM5 = 13;
+PARAM5 = 13,
+MSGERROR = 14;

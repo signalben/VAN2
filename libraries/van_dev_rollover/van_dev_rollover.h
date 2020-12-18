@@ -6,6 +6,7 @@
 
 extern const uint8_t
 SETDEST,
+MOTORS,
 PARAM1,
 PARAM4;
 

@@ -13,13 +13,19 @@ extern void showMessage(message inData);
 
 class ackbuff {
 private:
+  /*  Message storage[10]; //Contains the buffered messages
+    bool messagesEqual(message a, message b);
+    bool contains(message inData);
+    bool sameFormat(message a, message b);
+    const uint8_t FNUM = 1;//For error reporting, is identification of ackbuff file */
+
+public:
     Message storage[10]; //Contains the buffered messages
     bool messagesEqual(message a, message b);
     bool contains(message inData);
     bool sameFormat(message a, message b);
     const uint8_t FNUM = 1;//For error reporting, is identification of ackbuff file 
 
-public:
     ackbuff(void);
     bool Available;
     bool Overload;

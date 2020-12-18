@@ -16,7 +16,7 @@ void commandList(Message inData) {
 }
 
 void reportList() {
-  
+  AKB0.handleWaiting();
 }
 
 void setup() {
@@ -24,6 +24,7 @@ void setup() {
   Serial1.begin(115200);
   Serial2.begin(115200);
   Serial3.begin(115200);
+  AKB0.period = 100;
   
 }
 
