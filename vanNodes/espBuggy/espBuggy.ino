@@ -15,6 +15,8 @@
 ackbuff AKB0;//Create a buffer to store messages to be repeatedly sent until an acknowledgement is recieved 
 MPU6050 mpu(Wire);
 float AY, ANGY, GZ;
+unsigned long IRRead;
+
 Van_imu IMU0(IMU);
 Van_roll RL0(ROLLOVER);
 Van_rem REM0(REMOTE);
@@ -25,7 +27,8 @@ IRrecv IrReceiver(IR_RECEIVE_PIN);
 
 void REM0Update() {
   if (IrReceiver.decode()) {
-    REM0.IRReadValue = IrReceiver.results.value;
+    IRRead = IrReceiver.results.value;
+    REM0.IRReadValue = IRRead;
     IrReceiver.resume(); // Receive the next value
   }
   else {
@@ -38,9 +41,6 @@ void IMU0Update() {
   AY = mpu.getAccY();
   GZ = mpu.getGyroZ();
   ANGY = mpu.getAngleY();
- // float AY = mpu.getAngleY();
- // IMU0.ANGY = AY;
- // Serial.println(IMU0.ANGY);//////////////////////I think the MPU is broken!!!!! :(
 }
 
 void commandList(Message inData) {
@@ -52,6 +52,9 @@ void commandList(Message inData) {
   }
   if (inData.dest == REMOTE) {
     REM0.command(inData);
+  }
+    if (inData.dest == IMU) {
+    IMU0.command(inData);
   }
 }
 
@@ -69,8 +72,8 @@ void setup() {
   Wire.begin();
   mpu.begin();
   mpu.calcOffsets();
-  IMU0.AYdest = PID;
-  IMU0.GZdest = PID;
+  IMU0.AYdest = PC;
+  IMU0.GZdest = PC;
   IMU0.ANGYdest = ROLLOVER;
   IMU0.period = 100;
   RL0.destination = MOTORS;

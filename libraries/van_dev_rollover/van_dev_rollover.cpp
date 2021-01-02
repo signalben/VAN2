@@ -39,8 +39,6 @@ void van_roll::assessDanger(int angle) {
 
 	if (upright != oldUpright) {//Has changed state
 		Message toMotors;
-		Serial.print("roll");
-		Serial.print(upright);
 
 		if (upright) {//has been put the right way up
 			toMotors.set(STD, thisDevice, MOTORS, PARAM1, 255, 255, 1); //vehicle upright

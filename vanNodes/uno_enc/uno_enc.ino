@@ -32,7 +32,7 @@ void setup() {
   Serial.begin(115200);
   attachInterrupt(digitalPinToInterrupt(3), isrLeft, CHANGE);
   attachInterrupt(digitalPinToInterrupt(2), isrRight, CHANGE);
-  PID0.period = 50;
+  PID0.period = 20;
   PID0.destination = MOTORS;
   Message pidInitialState;
   pidInitialState.set(STD, PC, PID, SET, 128, 128, 1);

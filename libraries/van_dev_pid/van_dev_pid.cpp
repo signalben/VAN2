@@ -4,12 +4,18 @@
 #include "Arduino.h"
 #include <message.h>
 
-int encGain = 10, Pg = 15, Ig = 0, Dg = 2;
+int encGain = 10, Pg = 15, Ig = 0, Dg = 2;//Default PID gains, giving good control of buggy
+//Variables keep recieved target velocities, positional error, current velocities, and previous velocity error (needed to calculate change of velocity error)
 int lTarget = 128, rTarget = 128, lPosE = 0, lOldVelE = 0, lVel = 0, rPosE = 0, rOldVelE = 0, rVel = 0;
 
-void van_pid::isrLeft() {
 
-	if (digitalRead(lTrigPin)) {
+
+//functions.isrLeft and .isrRight must be called by interupt service routines setup in main sketch.
+void van_pid::isrLeft() {
+	//Arduino Nano only has 2 interupt pins, one for each encoder. Therefore ISRs only triggered upon change of one encoder channel: trigPin
+	//Direction of rotation determined by reading both channels, and either incrementing or decrementing a count
+	//Count used as a measure of velocity, since it is reset to 0 at regular time intervals 
+	if (digitalRead(lTrigPin)) { 
 		if (digitalRead(lDirPin))
 			lVel++;
 		else
@@ -24,6 +30,7 @@ void van_pid::isrLeft() {
 	}
 }
 
+//Function identical to isrLeft, other than reading other encoder, storing a seperate count
 void van_pid::isrRight() {
 	if (digitalRead(rTrigPin)) {
 		if (digitalRead(rDirPin))
@@ -40,18 +47,21 @@ void van_pid::isrRight() {
 	}
 }
 
+//Construct PID object, requires PID address, pins in order: right trigger, right direction, left trigger, left direction
+//both trigger pins must be interupt capable
 van_pid::van_pid(uint8_t deviceAdress, int a, int b, int c, int d) {
 
-	thisDevice = deviceAdress; //MOTORS
-	destination = 0; //test to pc, should be 0 
+	thisDevice = deviceAdress; //assigns address to this device
+	destination = 0; //destination should be motors, set in main sketch
 	lastReport = 0;
 	period = 0;
 
-	rTrigPin = a; //2
+	rTrigPin = a; //2 These pin values used on buggy
 	rDirPin = b; // 4
 	lTrigPin = c; // 3
 	lDirPin = d; //5
 
+	//They must all be inputs:
 	pinMode(lTrigPin, INPUT);
 	pinMode(lDirPin, INPUT);
 	pinMode(rTrigPin, INPUT);
@@ -59,24 +69,29 @@ van_pid::van_pid(uint8_t deviceAdress, int a, int b, int c, int d) {
 }
 
 void van_pid::command(message inData) {
-
+	//Messages with command SET use DAT0, DAT1 to set left, right target velocities from a single message.
+	//Input target velocites range from 0 to 128 to 255, respectivly full reverse, stop, full forwards.
 	if (inData.cmd == SET) { 
-		lTarget = inData.dat0 - 128;
+		lTarget = inData.dat0 - 128;//This range is changed to -128 to 255, to be used in PID calcs
 		rTarget = inData.dat1 - 128;
 		return;
 	}
 
-	if (inData.cmd == PERIOD) {
+	if (inData.cmd == PERIOD) {//In this case 20ms was found to be suitable, and is initially set in main
 		period = inData.getDataInt();
 		return;
 	}
 
 	if (inData.cmd == SETDEST) {
 		destination = inData.dat1;
+		Message buff;
+		buff.set(STD, thisDevice, destination, RESPONSE, 0, destination, 1);
+		handleMessage(buff);
 		return;
 	}
 
-	/*if (inData.cmd == PARAM0) {
+	//Messages with cmd PARAM0,1,2,3 modify encoderGain, PI and D values (max 255) 
+	if (inData.cmd == PARAM0) {
 		encGain = inData.dat1;
 		return;
 	}
@@ -94,13 +109,14 @@ void van_pid::command(message inData) {
 	if (inData.cmd == PARAM3) {
 		Dg = inData.dat1;
 		return;
-	}*/
+	}
 
 }
 
+//Called repeatedly from main, allows PID to regularly send motor commands
 void van_pid::autoReport() {
 
-	if (period == 0||destination == 0) {
+	if (period == 0||destination == 0) {//Allows PID to be disabled, disables by default if no destination
 		return;
 	}
 
@@ -116,32 +132,39 @@ void van_pid::autoReport() {
 
 void van_pid::instantReport() {
 
-	int lVelE = lTarget - lVel*encGain;
-	lPosE += lVelE;
-	lPosE = constrain(lPosE, -2046, 2045);
-	int lAccE = lVelE - lOldVelE;
-	int left = ((Pg * lVelE) + (Ig * lPosE) + (Dg * lAccE)) / 16;
-	lOldVelE = lVelE;
+	//Calculations to produce left motor command
+	int lVelE = lTarget - lVel*encGain; //proportional error
+	lPosE += lVelE; //update integral/positional error
+	lPosE = constrain(lPosE, -1024, 1024); //prevent too much integral windup
+	int lAccE = lVelE - lOldVelE;	//derivative/acceleration error
+	int left = ((Pg * lVelE) + (Ig * lPosE) + (Dg * lAccE)) / 16; //Sum errors, wieghted by their gains, scale down to 8 bit range
+	lOldVelE = lVelE; //Store for use in next call
 
+	//Calculations to produce right motor command
+	int rVelE = rTarget - lVel * encGain; //proportional error
+	rPosE += rVelE; //update integral/positional error
+	rPosE = constrain(rPosE, -1024, 1024); //prevent too much integral windup
+	int rAccE = rVelE - rOldVelE; //derivative/acceleration error
+	int right = ((Pg * rVelE) + (Ig * rPosE) + (Dg * rAccE)) / 16; //Sum errors, wieghted by their gains, scale down to 8 bit range
+	rOldVelE = rVelE; //Store for use in next call
 
-	int rVelE = rTarget - lVel * encGain;
-	rPosE += rVelE;
-	rPosE = constrain(rPosE, -2046, 2045);
-	int rAccE = rVelE - rOldVelE;
-	int right = ((Pg * rVelE) + (Ig * rPosE) + (Dg * rAccE)) / 16;
-	rOldVelE = rVelE;
-
-	lVel = 0;
+	//Reset to accumulate next period of encoder counts
+	lVel = 0; 
 	rVel = 0;
+
+	//Limit to sensible values
 	rOldVelE = constrain(rOldVelE,  -128, 127);
 	lOldVelE = constrain(lOldVelE, -128, 127);
 
-	left = left + 128;// range 0,255
+	//Convert output to range 0,255 for transmission
+	left = left + 128;
 	right = right + 128;
 
+	//Garentee values can be stored in a byte 
 	left = constrain(left, 0, 255);
 	right = constrain(right, 0, 255);
 
+	//Construct and send message updating motor PWM values
 	Message buff;
 	buff.set(STD, thisDevice, destination, SET, uint8_t(left), uint8_t(right), 1);
 	handleMessage(buff);

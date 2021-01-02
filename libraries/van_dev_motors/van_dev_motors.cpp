@@ -4,24 +4,22 @@
 #include "Arduino.h"
 #include <message.h>
 
-//15:34 : 48.141->PORT : 3
-//15 : 34 : 48.141 -> 7_31_20_7_110_110 WHY NO GO?????
-
-
+//Construction requires an address, pins for motor A direction, motor A PWM, motor B direction, motor B PWM
 van_motors::van_motors(uint8_t deviceAdress, int a, int b, int c, int d) {
 
-	aDirPin = a; // 12
+	aDirPin = a; // 12 pins as used on buggy
 	aPwmPin = b; //  3
 	bDirPin = c; // 13
 	bPwmPin = d; // 11
 
+	//All pins set as outputs
 	pinMode(aDirPin, OUTPUT);
 	pinMode(aPwmPin, OUTPUT);
 	pinMode(bDirPin, OUTPUT);
 	pinMode(bPwmPin, OUTPUT);
 
 	thisDevice = deviceAdress; //MOTORS
-	destination = 0; //test to pc, should be 0 
+	destination = 0; //Initially set in main to PC, for reporting enable/disable state
 	lastReport = 0;
 	period = 0;
 	safeAhead = true;
@@ -29,25 +27,28 @@ van_motors::van_motors(uint8_t deviceAdress, int a, int b, int c, int d) {
 
 void van_motors::command(message inData) {
 
-	if (inData.cmd == SET) {	
-		if (upright) {
-			int left = inData.dat1 - 128;//dat0, dat1  motor a, b range -128,127
+	if (inData.cmd == SET) { //received message to set PWM, direction on both channels	
+		//Messages with command SET use DAT0, DAT1 to set left, right target velocities from a single message.
+		//Input target velocites range from 0 to 128 to 255, respectivly full reverse, stop, full forwards
+		if (upright) {//buggy has not rolled over
+			int left = inData.dat1 - 128;//convert both motor inputs to range -128, 127
 			int right = inData.dat0 - 128;
 
-			if (left > 0) {
+			if (left > 0) {	//If above 0, target velocity is forwards
 
-				digitalWrite(aDirPin, LOW);//f
+				digitalWrite(aDirPin, LOW);//Set direction pin to forwards
 
-				if (safeAhead)
-					analogWrite(aPwmPin, (2 * left)); //range 0,255	
+				if (safeAhead)//Only allow forwards motion if it is safe ahead
+					analogWrite(aPwmPin, (2 * left)); //multiplied by 2 to use full PWM range 0,255	
 				else
-					analogWrite(aPwmPin, 0); //range 0,255
+					analogWrite(aPwmPin, 0); //If an obsticle is ahead, set forward motion to 0
 			}
-			else {
-				digitalWrite(aDirPin, HIGH);//r
-				analogWrite(aPwmPin, (2 * -left));
+			else {	//If below 0, target velocity is backwards. No need to check if it is safe ahead.
+				digitalWrite(aDirPin, HIGH);//Set direction to reverse 
+				analogWrite(aPwmPin, (2 * -left)); //Invert value to be positive for setting PWM 
 			}
 
+			//Identical logic for other motor
 			if (right > 0) {
 				digitalWrite(bDirPin, HIGH);//f
 
@@ -63,31 +64,35 @@ void van_motors::command(message inData) {
 
 		}
 
-		else {
+		else {//If not upright, buggy has rolled over, set both PWM values to 0 
 			analogWrite(aPwmPin, 0);
-			analogWrite(aPwmPin, 0);
+			analogWrite(bPwmPin, 0);
 		}
 	}
 
-	if (inData.cmd == PARAM0) {
-		if (inData.dat1 > 0)
-			safeAhead = true;
+	if (inData.cmd == PARAM0) {//Mesages recieved as cmd PARAM0 (from ultrasound) indicate introduction or removal of a blocking object 
+		if (inData.dat1 > 0)	//Data values are 255 255 for object removed or 0, 0 for obsticle detected
+			safeAhead = true;	//Bool safeAhead retains state between calls
 
 		else
 			safeAhead = false;
 
+		instantReport();	//Report this change to the PC
+
 	}
 
-	if (inData.cmd == PARAM1) {
-		if (inData.dat1 > 0)
-			upright = true;
+	if (inData.cmd == PARAM1) { //Mesages recieved as cmd PARAM1, are from device rollover, based on IMU Y axis angle
+		if (inData.dat1 > 0)	//Indicates change of state from upright to rolled over or vice-versa
+			upright = true;		//Same message data formats as with ultrasound
 
 		else
 			upright = false;
+
+		instantReport(); //Report this change to the PC
 	}
 
-	//Motors currently only act on SET command, reporting code left for future functions (error reporting)
-
+	//Period left set to 0 in use, as continous reporting of the motors enable/disabled state is not required
+	//since PWM, direction pins are set immeadiatly upon recieving commands
 	if (inData.cmd == PERIOD) {
 		period = inData.getDataInt();
 		return;
@@ -113,8 +118,7 @@ void van_motors::command(message inData) {
 
 }
 
-
-
+//Code left in to allow continous reporting if desired
 void van_motors::autoReport() {
 
 	if (period == 0) {
@@ -129,11 +133,17 @@ void van_motors::autoReport() {
 	instantReport();
 }
 
+//Used for reporting motor enable/disable status to PC
 void van_motors::instantReport() {
 
-	if (destination == 0) {
+	if (destination == 0) { //Can be disabled by setting destination to 0
 		return;
 	}
+
+	//Construct and send message to PC. dat0, contains safeAhead status as 0 or 1, and dat1 contains upright status
+	Message buff;
+	buff.set(STD, thisDevice, destination, REPORT, safeAhead, upright, 1);
+	handleMessage(buff);
 
 	lastReport = millis();
 }

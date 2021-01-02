@@ -20,7 +20,7 @@ Function espNowSetup() must be called before use.
 If the function handleMessage determines a message should be sent via "serial port 3", it instead transmits the message using the ESP-NOW function esp_now_send,
 to the MAC address of the other ESP32, defined in netDef.h, which is the other end of "serial port 3".
 
-Upon reception ESP-NOW does not use a harware buffer to store incoming messages, so an iterupt service routine, espNowISR, must be used
+Upon reception ESP-NOW does not use a hardware buffer to store incoming messages, so an iterupt service routine, espNowISR, must be used
 However, it is problematic to act on messages within the ISR: 
 Messages from "serial port 3" would have absolute priority over those from other ports, potentially locking them out altogether
 If the ISR has not yet completed acting upon a message, subsequent messages recieved via "serial port 3" would be lost

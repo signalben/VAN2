@@ -4,6 +4,7 @@
 #include "message.h"
 #include "ackbuff.h"
 
+//Constants required from netDef.h
 extern const uint8_t
 PERIOD,
 REPORT,

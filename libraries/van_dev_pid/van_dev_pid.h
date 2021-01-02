@@ -9,6 +9,7 @@
 extern const uint8_t
 PERIOD,
 REPORT,
+RESPONSE,
 SETDEST,
 STD,
 SET,
@@ -33,10 +34,7 @@ public:
     uint8_t destination;
     unsigned long lastReport;
     unsigned int period;
-
     int rTrigPin, rDirPin, lTrigPin, lDirPin;
-	//int  Pg, Ig, Dg;
-	//int lTarget, rTarget, lPosE, lOldVelE, lVel, rPosE, rOldVelE, rVel;
 
     van_pid(uint8_t deviceAdress, int a, int b, int c, int d);
     void command(message inData);

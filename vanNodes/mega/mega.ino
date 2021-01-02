@@ -2,7 +2,7 @@
 #include<vanMega.h>
 #include<node.h>
 #include <van_dev_motors.h>
-
+//https://www.youtube.com/watch?v=Mvgw7XtpaJY demo
 ackbuff AKB0;//Create a buffer to store messages to be repeatedly sent until an acknowledgement is recieved 
 van_motors M0(MOTORS,12,3,13,11);
 
@@ -25,6 +25,8 @@ void setup() {
   Serial2.begin(115200);
   Serial3.begin(115200);
   AKB0.period = 100;
+  M0.period = 0;
+  M0.destination = PC;
   
 }
 

@@ -109,7 +109,7 @@ void ackbuff::handleWaiting() {
 		if (storage[i].valid) {
 			message buff = storage[i];
 			buff.start = ACK;			//messages are stored as STD, but must be flagged as ACK when sent (otherwise no RESP will be provoked on other end)
-			showMessage(buff);
+			//showMessage(buff);
 			handleMessage(buff);
 		}
 	}
