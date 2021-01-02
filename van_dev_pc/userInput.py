@@ -1,13 +1,9 @@
-#https://www.reddit.com/r/learnpython/comments/8kfys3/running_code_while_waiting_for_user_input/ ##corey shraffer
-#https://pythonspot.com/matplotlib-update-plot/
-#https://www.jonwitts.co.uk/archives/896
-#!/usr/bin/python3
- 
-# adapted from https://github.com/recantha/EduKit3-RC-Keyboard/blob/master/rc_keyboard.py
+#Third party modules:
 import serial, time, threading, sys, termios, tty, os
 import tkinter as tk # Python 3.x Version
 import matplotlib.pyplot as plt
 import numpy as np
+#From file which is own work:
 from definitions import *
 
 def parseUserMessage(TS, userInput):

@@ -1,5 +1,3 @@
-//https://randomnerdtutorials.com/complete-guide-for-ultrasonic-sensor-hc-sr04/
-
 #ifndef van_dev_skidsteer_h
 #define van_dev_skidsteer_h
 #include "Arduino.h"

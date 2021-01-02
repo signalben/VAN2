@@ -1,12 +1,9 @@
-#https://www.reddit.com/r/learnpython/comments/8kfys3/running_code_while_waiting_for_user_input/ ##corey shraffer
-#https://pythonspot.com/matplotlib-update-plot/
-#https://gist.github.com/athiyadeviyani/b18afdc8136f003956b1a71d94a6c696
-#https://stackoverflow.com/questions/13510882/how-to-change-ttk-progressbar-color-in-python
-
+#Third party modules:
 import time
 from tkinter import *
 import tkinter as tk # Python 3.x Version
 from tkinter.ttk import Progressbar
+#From file which is own work:
 from definitions import *
 
 

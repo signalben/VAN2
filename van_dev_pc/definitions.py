@@ -1,5 +1,4 @@
-#https://www.reddit.com/r/learnpython/comments/8kfys3/running_code_while_waiting_for_user_input/ ##corey shraffer
-#https://pythonspot.com/matplotlib-update-plot/
+#Third party modules:
 import serial
 import time
 import threading

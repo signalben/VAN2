@@ -1,13 +1,12 @@
-//IRremote: IRreceiveDemo - demonstrates receiving IR codes with IRrecv
-//Copyright 2009 Ken Shirriff
-//http://arcfn.com
-
+//Headers are own work:
 #include "netDef.h"
 #include<vanEsp.h>
 #include<node.h>
 #include<van_dev_imu.h>
 #include<van_dev_rollover.h>
 #include<van_dev_remote.h>
+
+//Headers are not own work:
 #include<Wire.h>
 #include<MPU6050_light.h>
 #include <IRremote.h>

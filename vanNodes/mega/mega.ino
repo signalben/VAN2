@@ -1,8 +1,9 @@
+//All headers are own work:
 #include "netDef.h"
 #include<vanMega.h>
 #include<node.h>
 #include <van_dev_motors.h>
-//https://www.youtube.com/watch?v=Mvgw7XtpaJY demo
+
 ackbuff AKB0;//Create a buffer to store messages to be repeatedly sent until an acknowledgement is recieved 
 van_motors M0(MOTORS,12,3,13,11);
 

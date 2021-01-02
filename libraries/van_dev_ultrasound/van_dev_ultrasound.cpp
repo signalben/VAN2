@@ -1,5 +1,3 @@
-//https://randomnerdtutorials.com/complete-guide-for-ultrasonic-sensor-hc-sr04/
-
 #include "van_dev_ultrasound.h"
 #include "Arduino.h"
 #include <message.h>

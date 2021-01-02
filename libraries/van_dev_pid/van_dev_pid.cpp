@@ -1,5 +1,3 @@
-//REF: http://www.4tronix.co.uk/arduino/sketches/initio_03.ino
-
 #include "van_dev_pid.h"
 #include "Arduino.h"
 #include <message.h>
