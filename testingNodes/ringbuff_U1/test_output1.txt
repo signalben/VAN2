@@ -1,0 +1,326 @@
+ets Jun  8 2016 00:22:57
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:1
+load:0x3fff0018,len:4
+load:0x3fff001c,len:1216
+ho 0 tail 12 room 4
+load:0x40078000,len:9720
+ho 0 tail 12 room 4
+load:0x40080400,len:6352
+entry 0x400806b8
+Serial working
+Another message stored
+Status before reading:
+1:2_0:0_0:0_0:0_0:0_0:0_0:0_0:0_0:0_0:0_
+Another message stored
+Status before reading:
+1:2_1:3_0:0_0:0_0:0_0:0_0:0_0:0_0:0_0:0_
+Another message stored
+Status before reading:
+1:2_1:3_1:4_0:0_0:0_0:0_0:0_0:0_0:0_0:0_
+Another message stored
+Status before reading:
+1:2_1:3_1:4_1:5_0:0_0:0_0:0_0:0_0:0_0:0_
+Another message stored
+Status before reading:
+1:2_1:3_1:4_1:5_1:6_0:0_0:0_0:0_0:0_0:0_
+Another message stored
+Status before reading:
+1:2_1:3_1:4_1:5_1:6_1:7_0:0_0:0_0:0_0:0_
+Another message stored
+Status before reading:
+1:2_1:3_1:4_1:5_1:6_1:7_1:8_0:0_0:0_0:0_
+Another message stored
+Status before reading:
+1:2_1:3_1:4_1:5_1:6_1:7_1:8_1:9_0:0_0:0_
+Another message stored
+Status before reading:
+1:2_1:3_1:4_1:5_1:6_1:7_1:8_1:9_1:10_0:0_
+Another message stored
+Status before reading:
+1:2_1:3_1:4_1:5_1:6_1:7_1:8_1:9_1:10_1:11_
+ESP-NOW ring buffer over capacity
+Another message stored
+Status before reading:
+1:2_1:3_1:4_1:5_1:6_1:7_1:8_1:9_1:10_1:11_
+ESP-NOW ring buffer over capacity
+Another message stored
+Status before reading:
+1:2_1:3_1:4_1:5_1:6_1:7_1:8_1:9_1:10_1:11_
+ESP-NOW ring buffer over capacity
+Another message stored
+Status before reading:
+1:2_1:3_1:4_1:5_1:6_1:7_1:8_1:9_1:10_1:11_
+ESP-NOW ring buffer over capacity
+Another message stored
+Status before reading:
+1:2_1:3_1:4_1:5_1:6_1:7_1:8_1:9_1:10_1:11_
+ESP-NOW ring buffer over capacity
+Another message stored
+Status before reading:
+1:2_1:3_1:4_1:5_1:6_1:7_1:8_1:9_1:10_1:11_
+ESP-NOW ring buffer over capacity
+Another message stored
+Status before reading:
+1:2_1:3_1:4_1:5_1:6_1:7_1:8_1:9_1:10_1:11_
+ESP-NOW ring buffer over capacity
+Another message stored
+Status before reading:
+1:2_1:3_1:4_1:5_1:6_1:7_1:8_1:9_1:10_1:11_
+ESP-NOW ring buffer over capacity
+Another message stored
+Status before reading:
+1:2_1:3_1:4_1:5_1:6_1:7_1:8_1:9_1:10_1:11_
+ESP-NOW ring buffer over capacity
+Another message stored
+Status before reading:
+1:2_1:3_1:4_1:5_1:6_1:7_1:8_1:9_1:10_1:11_
+ESP-NOW ring buffer over capacity
+Another message stored
+Status before reading:
+1:2_1:3_1:4_1:5_1:6_1:7_1:8_1:9_1:10_1:11_
+ESP-NOW ring buffer over capacity
+Another message stored
+Status before reading:
+1:2_1:3_1:4_1:5_1:6_1:7_1:8_1:9_1:10_1:11_
+ESP-NOW ring buffer over capacity
+Another message stored
+Status before reading:
+1:2_1:3_1:4_1:5_1:6_1:7_1:8_1:9_1:10_1:11_
+Read message:
+1:2
+Status after reading:
+0:2_1:3_1:4_1:5_1:6_1:7_1:8_1:9_1:10_1:11_
+Another message stored
+Status before reading:
+1:24_1:3_1:4_1:5_1:6_1:7_1:8_1:9_1:10_1:11_
+Read message:
+1:3
+Status after reading:
+1:24_0:3_1:4_1:5_1:6_1:7_1:8_1:9_1:10_1:11_
+Another message stored
+Status before reading:
+1:24_1:25_1:4_1:5_1:6_1:7_1:8_1:9_1:10_1:11_
+Read message:
+1:4
+Status after reading:
+1:24_1:25_0:4_1:5_1:6_1:7_1:8_1:9_1:10_1:11_
+Another message stored
+Status before reading:
+1:24_1:25_1:26_1:5_1:6_1:7_1:8_1:9_1:10_1:11_
+Read message:
+1:5
+Status after reading:
+1:24_1:25_1:26_0:5_1:6_1:7_1:8_1:9_1:10_1:11_
+Another message stored
+Status before reading:
+1:24_1:25_1:26_1:27_1:6_1:7_1:8_1:9_1:10_1:11_
+Read message:
+1:6
+Status after reading:
+1:24_1:25_1:26_1:27_0:6_1:7_1:8_1:9_1:10_1:11_
+Another message stored
+Status before reading:
+1:24_1:25_1:26_1:27_1:28_1:7_1:8_1:9_1:10_1:11_
+Read message:
+1:7
+Status after reading:
+1:24_1:25_1:26_1:27_1:28_0:7_1:8_1:9_1:10_1:11_
+Another message stored
+Status before reading:
+1:24_1:25_1:26_1:27_1:28_1:29_1:8_1:9_1:10_1:11_
+Read message:
+1:8
+Status after reading:
+1:24_1:25_1:26_1:27_1:28_1:29_0:8_1:9_1:10_1:11_
+Another message stored
+Status before reading:
+1:24_1:25_1:26_1:27_1:28_1:29_1:30_1:9_1:10_1:11_
+Read message:
+1:9
+Status after reading:
+1:24_1:25_1:26_1:27_1:28_1:29_1:30_0:9_1:10_1:11_
+Another message stored
+Status before reading:
+1:24_1:25_1:26_1:27_1:28_1:29_1:30_1:31_1:10_1:11_
+Read message:
+1:10
+Status after reading:
+1:24_1:25_1:26_1:27_1:28_1:29_1:30_1:31_0:10_1:11_
+Another message stored
+Status before reading:
+1:24_1:25_1:26_1:27_1:28_1:29_1:30_1:31_1:32_1:11_
+Read message:
+1:11
+Status after reading:
+1:24_1:25_1:26_1:27_1:28_1:29_1:30_1:31_1:32_0:11_
+Another message stored
+Status before reading:
+1:24_1:25_1:26_1:27_1:28_1:29_1:30_1:31_1:32_1:33_
+Read message:
+Note: reading from slot zero again
+1:24
+Status after reading:
+0:24_1:25_1:26_1:27_1:28_1:29_1:30_1:31_1:32_1:33_
+Another message stored
+Status before reading:
+1:34_1:25_1:26_1:27_1:28_1:29_1:30_1:31_1:32_1:33_
+Read message:
+1:25
+Status after reading:
+1:34_0:25_1:26_1:27_1:28_1:29_1:30_1:31_1:32_1:33_
+Another message stored
+Status before reading:
+1:34_1:35_1:26_1:27_1:28_1:29_1:30_1:31_1:32_1:33_
+Read message:
+1:26
+Status after reading:
+1:34_1:35_0:26_1:27_1:28_1:29_1:30_1:31_1:32_1:33_
+Another message stored
+Status before reading:
+1:34_1:35_1:36_1:27_1:28_1:29_1:30_1:31_1:32_1:33_
+Read message:
+1:27
+Status after reading:
+1:34_1:35_1:36_0:27_1:28_1:29_1:30_1:31_1:32_1:33_
+Another message stored
+Status before reading:
+1:34_1:35_1:36_1:37_1:28_1:29_1:30_1:31_1:32_1:33_
+Read message:
+1:28
+Status after reading:
+1:34_1:35_1:36_1:37_0:28_1:29_1:30_1:31_1:32_1:33_
+Another message stored
+Status before reading:
+1:34_1:35_1:36_1:37_1:38_1:29_1:30_1:31_1:32_1:33_
+Read message:
+1:29
+Status after reading:
+1:34_1:35_1:36_1:37_1:38_0:29_1:30_1:31_1:32_1:33_
+Another message stored
+Status before reading:
+1:34_1:35_1:36_1:37_1:38_1:39_1:30_1:31_1:32_1:33_
+Read message:
+1:30
+Status after reading:
+1:34_1:35_1:36_1:37_1:38_1:39_0:30_1:31_1:32_1:33_
+Another message stored
+Status before reading:
+1:34_1:35_1:36_1:37_1:38_1:39_1:40_1:31_1:32_1:33_
+Read message:
+1:31
+Status after reading:
+1:34_1:35_1:36_1:37_1:38_1:39_1:40_0:31_1:32_1:33_
+Another message stored
+Status before reading:
+1:34_1:35_1:36_1:37_1:38_1:39_1:40_1:41_1:32_1:33_
+Read message:
+1:32
+Status after reading:
+1:34_1:35_1:36_1:37_1:38_1:39_1:40_1:41_0:32_1:33_
+Status before reading:
+1:34_1:35_1:36_1:37_1:38_1:39_1:40_1:41_0:32_1:33_
+Read message:
+1:33
+Status after reading:
+1:34_1:35_1:36_1:37_1:38_1:39_1:40_1:41_0:32_0:33_
+Status before reading:
+1:34_1:35_1:36_1:37_1:38_1:39_1:40_1:41_0:32_0:33_
+Read message:
+Note: reading from slot zero again
+1:34
+Status after reading:
+0:34_1:35_1:36_1:37_1:38_1:39_1:40_1:41_0:32_0:33_
+Status before reading:
+0:34_1:35_1:36_1:37_1:38_1:39_1:40_1:41_0:32_0:33_
+Read message:
+1:35
+Status after reading:
+0:34_0:35_1:36_1:37_1:38_1:39_1:40_1:41_0:32_0:33_
+Status before reading:
+0:34_0:35_1:36_1:37_1:38_1:39_1:40_1:41_0:32_0:33_
+Read message:
+1:36
+Status after reading:
+0:34_0:35_0:36_1:37_1:38_1:39_1:40_1:41_0:32_0:33_
+Status before reading:
+0:34_0:35_0:36_1:37_1:38_1:39_1:40_1:41_0:32_0:33_
+Read message:
+1:37
+Status after reading:
+0:34_0:35_0:36_0:37_1:38_1:39_1:40_1:41_0:32_0:33_
+Status before reading:
+0:34_0:35_0:36_0:37_1:38_1:39_1:40_1:41_0:32_0:33_
+Read message:
+1:38
+Status after reading:
+0:34_0:35_0:36_0:37_0:38_1:39_1:40_1:41_0:32_0:33_
+Status before reading:
+0:34_0:35_0:36_0:37_0:38_1:39_1:40_1:41_0:32_0:33_
+Read message:
+1:39
+Status after reading:
+0:34_0:35_0:36_0:37_0:38_0:39_1:40_1:41_0:32_0:33_
+Status before reading:
+0:34_0:35_0:36_0:37_0:38_0:39_1:40_1:41_0:32_0:33_
+Read message:
+1:40
+Status after reading:
+0:34_0:35_0:36_0:37_0:38_0:39_0:40_1:41_0:32_0:33_
+Status before reading:
+0:34_0:35_0:36_0:37_0:38_0:39_0:40_1:41_0:32_0:33_
+Read message:
+1:41
+Status after reading:
+0:34_0:35_0:36_0:37_0:38_0:39_0:40_0:41_0:32_0:33_
+Status before reading:
+0:34_0:35_0:36_0:37_0:38_0:39_0:40_0:41_0:32_0:33_
+Read message:
+Note: reading from slot zero again
+Error- Nothing in ringBuffer!!!!!!!!!
+0:34
+Status after reading:
+0:34_0:35_0:36_0:37_0:38_0:39_0:40_0:41_0:32_0:33_
+Status before reading:
+0:34_0:35_0:36_0:37_0:38_0:39_0:40_0:41_0:32_0:33_
+Read message:
+Note: reading from slot zero again
+Error- Nothing in ringBuffer!!!!!!!!!
+0:34
+Status after reading:
+0:34_0:35_0:36_0:37_0:38_0:39_0:40_0:41_0:32_0:33_
+Status before reading:
+0:34_0:35_0:36_0:37_0:38_0:39_0:40_0:41_0:32_0:33_
+Read message:
+Note: reading from slot zero again
+Error- Nothing in ringBuffer!!!!!!!!!
+0:34
+Status after reading:
+0:34_0:35_0:36_0:37_0:38_0:39_0:40_0:41_0:32_0:33_
+Status before reading:
+0:34_0:35_0:36_0:37_0:38_0:39_0:40_0:41_0:32_0:33_
+Read message:
+Note: reading from slot zero again
+Error- Nothing in ringBuffer!!!!!!!!!
+0:34
+Status after reading:
+0:34_0:35_0:36_0:37_0:38_0:39_0:40_0:41_0:32_0:33_
+Status before reading:
+0:34_0:35_0:36_0:37_0:38_0:39_0:40_0:41_0:32_0:33_
+Read message:
+Note: reading from slot zero again
+Error- Nothing in ringBuffer!!!!!!!!!
+0:34
+Status after reading:
+0:34_0:35_0:36_0:37_0:38_0:39_0:40_0:41_0:32_0:33_
+Status before reading:
+0:34_0:35_0:36_0:37_0:38_0:39_0:40_0:41_0:32_0:33_
+Read message:
+Note: reading from slot zero again
+Error- Nothing in ringBuffer!!!!!!!!!
+0:34
+Status after reading:
+0:34_0:35_0:36_0:37_0:38_0:39_0:40_0:41_0:32_0:33_

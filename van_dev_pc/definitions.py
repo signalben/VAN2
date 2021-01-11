@@ -6,10 +6,12 @@ import tkinter as tk # Python 3.x Version
 import matplotlib.pyplot as plt
 import numpy as np
 
+#Definitions for start codes of messages
 STD = 7
 ACK = 90
 RESP = 110
 
+#disctionary allows references to devices in plaintext to be converted to their uint8 addresses
 name2Address = {
 "MEGA" : 1,
 "ESP32BUGGY" : 2,
@@ -26,8 +28,10 @@ name2Address = {
 "NANO_ENC" : 6
 }
 
+#create another dictionary with keys and values swapped, for displaying received device addresses in plaintext 
 address2Name = {v:k for k, v in name2Address.items()}
 
+#disctionary allows commands in plaintext to be converted to their uint8 codes
 name2Command = {
 "REPORT" : 1,
 "PERIOD" : 2, 
@@ -42,6 +46,7 @@ name2Command = {
 "P3" : 11
 }
 
+#create another dictionary with keys and values swapped, for displaying received device commands in plaintext 
 command2Name = {v:k for k, v in name2Command.items()}
 
 

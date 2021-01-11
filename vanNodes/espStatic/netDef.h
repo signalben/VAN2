@@ -40,7 +40,7 @@ SPORT1[],
 SPORT2[],
 SPORT3[],
 
-////Counts of local devices, and devices reachable on each serial port
+//Counts of local devices, and devices reachable on each serial port
 N_LOCALDEVICE,
 N_SPORT0,
 N_SPORT1,

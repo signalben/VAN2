@@ -3,6 +3,9 @@
 #define netDef_h
 #include "Arduino.h"
 #include <message.h>
+#include <esp_now.h>
+
+extern uint8_t peerMAC[]; //Adress of other esp
 
 extern const uint8_t
 //Message passing constants
@@ -28,14 +31,21 @@ MEGA,
 ESP32BUGGY,
 ESP32STATIC,
 
+
 //Devices local to this node (this node, sensors, actuators, functions)
 LOCALDEVICE[],
 //All other device ID's connected via serial ports 
 SPORT0[],
+SPORT1[],
+SPORT2[],
+SPORT3[],
 
-//Counts of local devices, and devices reachable on each serial port
+////Counts of local devices, and devices reachable on each serial port
 N_LOCALDEVICE,
 N_SPORT0,
+N_SPORT1,
+N_SPORT2,
+N_SPORT3,
 
 //Standard message CMD codes
 REPORT,
