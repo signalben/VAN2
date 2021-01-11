@@ -38,7 +38,7 @@ void setup() {
   PID0.period = 20; //update PID at 50hz
   PID0.destination = MOTORS; //PID sends velocity commands to motors
   Message pidInitialState; //send one message to PID setting its initial target velocity (left and right) to stationary (128)
-  pidInitialState.set(STD, PC, PID, SET, 128, 128, 1);
+  pidInitialState.set(STD, PC, PID, SET, 228, 228, 1);
   handleMessage(pidInitialState);
 }
 
